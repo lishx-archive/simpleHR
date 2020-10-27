@@ -48,11 +48,11 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<div th:replace="commons/bars::#sidebar(activeUri='emps')" ></div>
+				<div th:replace="commons/bars::#sidebar(activeUri='deps')" ></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<h2>
-						<a class="btn btn-sm btn-success" href="emp" th:href="@{/emp}">员工添加</a>
+						<a class="btn btn-sm btn-success" href="emp" th:href="@{/dep}">岗位添加</a>
 					</h2>
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
@@ -60,25 +60,17 @@
 								<tr>
 									<th>id</th>
 									<th>name</th>
-									<th>email</th>
-									<th>gender</th>
-									<th>department</th>
-									<th>birthday</th>
 									<th>操作</th>
 
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="emp:${emps}">
-									<td th:text="${emp.id}"></td>
-									<td >[[${emp.name}]]</td>
-									<td th:text="${emp.email}"></td>
-									<td th:text="${emp.gender}==0?'女':'男'"></td>
-									<td th:text="${deptsMap.get(emp.departmentId)}"></td>
-									<td th:text='${#dates.format(emp.birth,"yyyy-MM-dd")}'></td>
+								<tr th:each="dep:${deps}">
+									<td th:text="${dep.id}"></td>
+									<td th:text="${dep.depName}"></td>
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-										<button th:attr="del_uri=@{/emp/}+${emp.id}"
+										<a class="btn btn-sm btn-primary" th:href="@{/dep/}+${dep.id}">编辑</a>
+										<button th:attr="del_uri=@{/dep/}+${dep.id}"
 												class="btn btn-sm btn-danger deleteBtn">删除</button>
 									</td>
 								</tr>
