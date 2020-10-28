@@ -3,10 +3,6 @@ package com.xian.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xian.entities.DepartmentEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Auther: lishouxian

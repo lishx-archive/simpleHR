@@ -1,0 +1,208 @@
+﻿<!doctype html>
+<html >
+<head>
+<meta charset="utf-8">
+<title>聊天室一对一聊天-jq22.com</title>
+<script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<style>
+		.talkbody{
+			max-width: 1080px;
+			margin: 0 auto;
+			background: #f1f1f1;
+			color:#333;
+			font-size: 0.26rem;
+		}
+		.talkmessage{
+			background-color: #f1f1f1;
+			padding: 1.2rem 0.3rem 1rem 0.3rem;
+		}
+		.time{
+			font-size:0.24rem;
+			color:#999;
+			margin-bottom: 0.3rem;
+			text-align: center;
+		}
+		.talkfooter{
+			position: fixed;
+			bottom: 0;
+			height:3rem;
+			background-color:#fff;
+			line-height:3rem;
+			width: 100%;
+			max-width: 1080px;
+			border-top: 3px solid #ddd;
+		}
+		.talkfooter img{
+			margin-left:0.6rem;
+			width: 2rem;
+			margin-top:0.6rem;
+
+		}
+		.talkfooter input{
+			margin-left:0.6rem;
+			width:40rem;
+			height:2rem;
+			border-radius: 0.1rem;
+			border:0.01rem solid #ddd;
+			padding : 0 0.15rem;
+		}
+		.talkfooter p{
+			width:5rem;
+			height:2rem;
+			font-size:0.3rem;
+			color:#fff;
+			line-height:2rem;
+			text-align:center;
+			background-color:#ddd;
+			border-radius: 0.1rem;
+			float:right;
+			margin-top:0.6rem;
+			margin-right:0.6rem;
+		}
+		.send:after,.show:after,.msg:after{
+			content: "";
+			clear: both;
+			display: table;
+		}
+
+		.msg>img{
+			width: 2.8rem;
+			float: left;
+		}
+		.msg>p{
+			float: left;
+			margin:0  1rem;
+			padding: 0.6rem;
+			background: #fff;
+			font-size: 1.2rem;
+			position: relative;
+			border-radius: 0.2rem;
+			max-width:15rem ;
+			box-sizing: border-box;
+		}
+
+		.msg_input{
+			position: absolute;
+			background-size: 0.31rem auto;
+			width: 0.31rem;
+			height: 0.51rem;
+			left: -0.31rem;
+			top: 0.25rem;
+		}
+		.show .msg img,.show .msg p,.show .msg{
+			float: right;
+		}
+
+		.show .msg_input{
+			left: auto;
+			right: -0.11rem;
+			transform:rotate(180deg);
+			-ms-transform:rotate(180deg); 	/* IE 9 */
+			-moz-transform:rotate(180deg); 	/* Firefox */
+			-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+			-o-transform:rotate(180deg); 	/* Opera */
+		}
+
+	</style>
+</head>
+
+
+<body>
+<div class="talkbody">
+	<div class="talkmessage">
+		<div class="send">
+			<div class="time">05/22 06:30</div>
+			<div class="msg">
+				<img src="http://www.jq22.com/img/cs/500x500-1.png" alt="">
+				<p><i class="msg_input"></i>你好在不在呀，亲！</p>
+			</div>
+		</div>
+		<div class="show">
+			<div class="time">05/22 06:30</div>
+			<div class="msg">
+				<img src="http://www.jq22.com/img/cs/500x500-2.png" alt="">
+				<p><i clas="msg_input"></i>你好你好你好</p>
+			</div>
+		</div>
+	</div>
+	<div class="talkfooter">
+		<img src="http://www.jq22.com/img/cs/500x500-4.png" alt="">
+		<input type="text">
+		<p>发送</p>
+	</div>
+</div>
+<script>
+	/*发送消息*/
+	function send(headSrc,str){
+		var html="<div class='send'><div class='msg'><img src="+headSrc+" />"+
+				"<p><i class='msg_input'></i>"+str+"</p></div></div>";
+		upView(html);
+	}
+	/*接受消息*/
+	function show(headSrc,str){
+		var html="<div class='show'><div class='msg'><img src="+headSrc+" />"+
+				"<p><i class='msg_input'></i>"+str+"</p></div></div>";
+		upView(html);
+	}
+	/*更新视图*/
+	function upView(html){
+		$('.talkmessage').append(html);
+		$('body').animate({scrollTop:$('.talkmessage').outerHeight()-window.innerHeight},200)
+	}
+	function sj(){
+		return parseInt(Math.random()*10)
+	}
+	$(function(){
+		$('.talkfooter').on('keyup','input',function(){
+			if($(this).val().length>0){
+				$(this).next().css('background','#114F8E').prop('disabled',true);
+
+			}else{
+				$(this).next().css('background','#ddd').prop('disabled',false);
+			}
+		})
+		$('.talkfooter p').click(function(){
+			show("http://www.jq22.com/img/cs/500x500-3.png",$(this).prev().val());
+			test();
+		})
+	})
+
+	/*测试数据*/
+	var arr=['我是苍老师啊','好久没联系了！','你在想我么','怎么不和我说话','跟我聊会天吧','别不理我呀！'];
+	var imgarr=['http://www.jq22.com/img/cs/500x500-1.png','http://www.jq22.com/img/cs/500x500-2.png']
+	test()
+	function test(){
+		$(arr).each(function(i){
+			setTimeout(function(){
+				send("http://www.jq22.com/img/cs/500x500-1.png",arr[i])
+			},sj()*500)
+		})
+	}
+
+
+	(function (doc, win) {
+		var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					if(clientWidth>=1080){
+						docEl.style.fontSize = '20px';
+					}else{
+						docEl.style.fontSize = 100 * (clientWidth / 1080) + 'px';
+					}
+				};
+
+		if (!doc.addEventListener) return;
+		win.addEventListener(resizeEvt, recalc, false);
+		doc.addEventListener('DOMContentLoaded', recalc, false);
+	})(document, window);
+</script>
+
+
+
+</body>
+
+
+
+</html>

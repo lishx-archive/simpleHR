@@ -43,14 +43,7 @@ public class EmployeeController {
 
     @GetMapping("/emp")
     public String toAddEmployees(Model model){
-        Collection<DepartmentEntity> departments = departmentService.getall();
-        model.addAttribute("depts",departments);
-        Map<Integer,String> maps = new HashMap<>();
-        for (DepartmentEntity depart : departments) {
-            maps.put(depart.getId(),depart.getDepName());
-        }
-        model.addAttribute("deptsMap",maps);
-        return "emp/add";
+        return getString(model);
     }
 
     @PostMapping("/emp")
@@ -69,6 +62,10 @@ public class EmployeeController {
     public String toEditPage(@PathVariable("id") Integer id,Model model){
         EmployeeEntity employee = employeeService.getById(id);
         model.addAttribute("emp", employee);
+        return getString(model);
+    }
+
+    private String getString(Model model) {
         Collection<DepartmentEntity> departments = departmentService.getall();
         model.addAttribute("depts",departments);
         Map<Integer,String> maps = new HashMap<>();

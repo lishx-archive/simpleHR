@@ -3,6 +3,7 @@ package com.xian.service.impl;
 import com.xian.entities.EmployeeEntity;
 import com.xian.mapper.EmployeeMapper;
 import com.xian.service.EmployeeService;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,11 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
 
         return  employeeEntities;
 
+    }
+
+    @RabbitListener(queues = {"hello-java-queue"})
+    public void receiveMessage(Object message) throws InterruptedException {
+        System.out.println("收到消息" + message);
+        Thread.sleep(3000);
     }
 }
