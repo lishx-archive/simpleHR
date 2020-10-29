@@ -40,141 +40,240 @@
 				animation: chartjs-render-animation 0.001s;
 			}
 		</style>
-		<style>
-			.talkbody{
-				max-width: 1080px;
-				margin: 0 auto;
-				background: #f1f1f1;
-				color:#333;
-				font-size: 0.26rem;
-			}
-			.talkmessage{
-				background-color: #f1f1f1;
-				padding: 1.2rem 0.3rem 1rem 0.3rem;
-			}
-			.time{
-				font-size:0.24rem;
-				color:#999;
-				margin-bottom: 0.3rem;
-				text-align: center;
-			}
-			.talkfooter{
-				position: fixed;
-				bottom: 0;
-				height:3rem;
-				background-color:#fff;
-				line-height:3rem;
-				width: 100%;
-				max-width: 1080px;
-				border-top: 3px solid #ddd;
-			}
-			.talkfooter img{
-				margin-left:0.6rem;
-				width: 2rem;
-				margin-top:0.6rem;
-
-			}
-			.talkfooter input{
-				margin-left:0.6rem;
-				width:40rem;
-				height:2rem;
-				border-radius: 0.1rem;
-				border:0.01rem solid #ddd;
-				padding : 0 0.15rem;
-			}
-			.talkfooter p{
-				width:5rem;
-				height:2rem;
-				font-size:0.3rem;
-				color:#fff;
-				line-height:2rem;
-				text-align:center;
-				background-color:#ddd;
-				border-radius: 0.1rem;
-				float:right;
-				margin-top:0.6rem;
-				margin-right:0.6rem;
-			}
-			.send:after,.show:after,.msg:after{
-				content: "";
-				clear: both;
-				display: table;
-			}
-			.send,.show{
-				padding-bottom: 0.3rem;
-			}
-			.msg>img{
-				width: 2.8rem;
-				float: left;
-			}
-			.msg>p{
-				float: left;
-				margin:0  1rem;
-				padding: 0.6rem;
-				background: #fff;
-				font-size: 1.2rem;
-				position: relative;
-				border-radius: 0.2rem;
-				max-width:15rem ;
-				box-sizing: border-box;
-			}
-
-			.msg_input{
-				position: absolute;
-				background-size: 0.31rem auto;
-				width: 0.31rem;
-				height: 0.51rem;
-				left: -0.31rem;
-				top: 0.25rem;
-			}
-			.show .msg img,.show .msg p,.show .msg{
-				float: right;
-			}
-
-			.show .msg_input{
-				left: auto;
-				right: -0.11rem;
-				transform:rotate(180deg);
-				-ms-transform:rotate(180deg); 	/* IE 9 */
-				-moz-transform:rotate(180deg); 	/* Firefox */
-				-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
-				-o-transform:rotate(180deg); 	/* Opera */
-			}
-
-		</style>
 	</head>
 
 	<body>
-
 		<div th:replace="commons/bars::topbar"></div>
-
 		<div class="container-fluid">
 			<div class="row">
 				<div th:replace="commons/bars::#sidebar(activeUri='talk')" ></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+					<html>
+					<head>
+						<meta charset="utf-8">
+						<title>聊天室一对一聊天-jq22.com</title>
+						<script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+						<style>
+							h5{
+								margin: 0;
+							}
+							img{
+								max-width: 100%;
+								vertical-align: middle
+							}
+							input{
+								outline: none;
+							}
+							.talkbody{
+								max-width: 720px;
+								height: complex;
+								margin: 0 auto;
+								background: #fff;
+								color:#333;
+								font-size: 0.26rem;
+							}
+
+							.message{
+								background-color: #fff;
+								padding: 1.2rem 0.3rem 1.8rem 0.3rem;
+								min-height: 720px;
+							}
+							.time{
+								font-size:0.24rem;
+								color:#999;
+								margin-bottom: 0.3rem;
+								text-align: center;
+							}
+
+							.footer{
+								position: fixed;
+								bottom: 0;
+								height:2.4rem;
+								background-color:#fff;
+								line-height:1rem;
+								width: 100%;
+								max-width: 720px;
+							}
+
+							.footer input{
+								margin-left:0.4rem;
+								width:39rem;
+								height:1.8rem;
+								float:left;
+								margin-top:0.3rem;
+								border-radius: 0.4rem;
+								border:0.01rem solid #ddd;
+								padding : 0 0.5rem;
+							}
+							.footer p{
+								width:3.6rem;
+								height:1.8rem;
+								font-size:0.5rem;
+								color:#fff;
+								line-height:1.8rem;
+								text-align:center;
+								background-color:#ddd;
+								border-radius: 0.4rem;
+								float:right;
+								margin-top:0.3rem;
+								margin-right:0.3rem;
+							}
+							.send:after,.show:after,.msg:after{
+								content: "";
+								clear: both;
+								display: table;
+							}
+
+
+							.msg>p{
+								float: left;
+								margin:0  0.4rem;
+								padding: 0.25rem;
+								background: #f1f1f1;
+								font-size: 0.3rem;
+								position: relative;
+								border-radius: 0.2rem;
+								max-width:10rem ;
+								box-sizing: border-box;
+							}
+
+							.msg_person{
+								width: auto;
+								float: left;
+								text-align:center;
+								font-size: 0.3rem;
+								padding: 0.25rem;
+
+							}
+							.msg_input{
+								position: absolute;
+								background-size: 0.31rem auto;
+								width: 0.31rem;
+								height: 0.51rem;
+								left: -0.31rem;
+								top: 0.25rem;
+							}
+							.show .msg img,.show .msg p,.show .msg .msg_person{
+								float: right;
+							}
+
+							.show .msg_input{
+								left: auto;
+								right: -0.11rem;
+								transform:rotate(180deg);
+								-ms-transform:rotate(180deg); 	/* IE 9 */
+								-moz-transform:rotate(180deg); 	/* Firefox */
+								-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+								-o-transform:rotate(180deg); 	/* Opera */
+							}
+							.send,.show{
+								padding-bottom: 0.3rem;
+							}
+
+						</style>
+					</head>
+
 					<div class="talkbody">
-						<div class="talkmessage">
+
+						<div class="message">
 							<div class="send">
 								<div class="time">05/22 06:30</div>
 								<div class="msg">
-									<img src="http://www.jq22.com/img/cs/500x500-1.png" alt="">
+									<i class="msg_person">植树</i>
 									<p><i class="msg_input"></i>你好在不在呀，亲！</p>
 								</div>
 							</div>
 							<div class="show">
 								<div class="time">05/22 06:30</div>
 								<div class="msg">
-									<img src="http://www.jq22.com/img/cs/500x500-2.png" alt="">
-									<p><i clas="msg_input"></i>你好你好你好</p>
+									<i class="msg_person">植树</i>
+									<p><i class="msg_input"></i>你好你好你好</p>
 								</div>
 							</div>
 						</div>
-						<div class="talkfooter">
-							<img src="http://www.jq22.com/img/cs/500x500-4.png" alt="">
-							<input type="text">
+						<div class="footer">
+							<input type="text"/>
 							<p>发送</p>
 						</div>
+
+
+						<script>
+							/*发送消息*/
+							function send(person,str){
+								var html="<div class='send'><div class='msg'><i class='msg_person'>"+person+"</i>"+
+										"<p><i class='msg_input'></i>"+str+"</p></div></div>";
+								upView(html);
+							}
+							/*接受消息*/
+							function show(person,str){
+								var html="<div class='show'><div class='msg'><i class='msg_person'>"+person+"</i>"+
+										"<p><i class='msg_input'></i>"+str+"</p></div></div>";
+								upView(html);
+							}
+							/*更新视图*/
+							function upView(html){
+								$('.message').append(html);
+								$('talkbody').animate({scrollTop:$('.message').outerHeight()-window.innerHeight},200)
+							}
+							function sj(){
+								return parseInt(Math.random()*10)
+							}
+							$(function(){
+								$('.footer').on('keyup','input',function(){
+									if($(this).val().length>0){
+										$(this).next().css('background','#114F8E').prop('disabled',true);
+
+									}else{
+										$(this).next().css('background','#ddd').prop('disabled',false);
+									}
+								})
+								$('.footer p').click(function(){
+									show("植树",$(this).prev().val());
+
+
+
+									test();
+								})
+							})
+
+							/*测试数据*/
+							var arr=['我是苍老师啊','好久没联系了！','你在想我么','怎么不和我说话','跟我聊会天吧','别不理我呀！'];
+							var person=['小白','小嘻','小黑','嘻嘻','小白','小嘻'];
+							test()
+							function test(){
+								$(arr).each(function(i){
+									setTimeout(function(){
+										send(person[i],arr[i])
+									},sj()*500)
+								})
+							}
+
+
+							(function (doc, win) {
+								var docEl = doc.documentElement,
+										resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+										recalc = function () {
+											var clientWidth = docEl.clientWidth;
+											if (!clientWidth) return;
+											if(clientWidth>=720){
+												docEl.style.fontSize = '16px';
+											}else{
+												docEl.style.fontSize = 16 * (clientWidth / 720) + 'px';
+											}
+										};
+
+								if (!doc.addEventListener) return;
+								win.addEventListener(resizeEvt, recalc, false);
+								doc.addEventListener('DOMContentLoaded', recalc, false);
+							})(document, window);
+
+						</script>
+
 					</div>
+
+					</html>
+
 				</main>
 			</div>
 		</div>
@@ -199,76 +298,6 @@
 				return false;
 			})
 		</script>
-
-
-		<script>
-			/*发送消息*/
-			function send(headSrc,str){
-				var html="<div class='send'><div class='msg'><img src="+headSrc+" />"+
-						"<p><i class='msg_input'></i>"+str+"</p></div></div>";
-				upView(html);
-			}
-			/*接受消息*/
-			function show(headSrc,str){
-				var html="<div class='show'><div class='msg'><img src="+headSrc+" />"+
-						"<p><i class='msg_input'></i>"+str+"</p></div></div>";
-				upView(html);
-			}
-			/*更新视图*/
-			function upView(html){
-				$('.talkmessage').append(html);
-				$('body').animate({scrollTop:$('.talkmessage').outerHeight()-window.innerHeight},200)
-			}
-			function sj(){
-				return parseInt(Math.random()*10)
-			}
-			$(function(){
-				$('.talkfooter').on('keyup','input',function(){
-					if($(this).val().length>0){
-						$(this).next().css('background','#114F8E').prop('disabled',true);
-
-					}else{
-						$(this).next().css('background','#ddd').prop('disabled',false);
-					}
-				})
-				$('.talkfooter p').click(function(){
-					show("http://www.jq22.com/img/cs/500x500-3.png",$(this).prev().val());
-					test();
-				})
-			})
-
-			/*测试数据*/
-			var arr=['我是苍老师啊','好久没联系了！','你在想我么','怎么不和我说话','跟我聊会天吧','别不理我呀！'];
-			var imgarr=['http://www.jq22.com/img/cs/500x500-1.png','http://www.jq22.com/img/cs/500x500-2.png']
-			test()
-			function test(){
-				$(arr).each(function(i){
-					setTimeout(function(){
-						send("http://www.jq22.com/img/cs/500x500-1.png",arr[i])
-					},sj()*500)
-				})
-			}
-
-
-			(function (doc, win) {
-				var docEl = doc.documentElement,
-						resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-						recalc = function () {
-							var clientWidth = docEl.clientWidth;
-							if (!clientWidth) return;
-							if(clientWidth>=720){
-								docEl.style.fontSize = '20px';
-							}else{
-								docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
-							}
-						};
-
-				if (!doc.addEventListener) return;
-				win.addEventListener(resizeEvt, recalc, false);
-				doc.addEventListener('DOMContentLoaded', recalc, false);
-			})(document, window);
-		</script>
-
 
 
 	</body>
