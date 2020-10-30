@@ -190,12 +190,12 @@
 
 		<script type="text/javascript"  th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 <!--		<script type="text/javascript" src="/asserts/js/popper.min.js"></script>-->
-		<script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/bootstrap.js}"></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
 		<!-- Icons -->
 <!--		<script type="text/javascript" src="/asserts/js/feather.min.js"></script>-->
-		<script>
-			feather.replace()
-		</script>
+<!--		<script>-->
+<!--			feather.replace()-->
+<!--		</script>-->
 
 		<script>
 			$(".deleteBtn").click(function (){
@@ -224,7 +224,7 @@
 				// $('.talkbody').animate({scrollTop:$('.message').outerHeight()-window.innerHeight},200)
 			}
 			function sj(){
-				return parseInt(Math.random()*10)
+				return parseInt(100)
 			}
 			$(function(){
 				$('.footer').on('keyup','input',function(){
@@ -236,11 +236,37 @@
 				})
 				$('.footer p').click(function(){
 					show("植树",$(this).prev().val());
-					appPost()
-					test();
-				})
+					appPost($(this).prev().val());
 
+				})
 			})
+
+			function appPost(str) {
+				$.ajax({
+					type: "POST", // 请求方式
+					url: "talk/message", // 目标资源
+					cache: false, //true 如果当前请求有缓存的话，直接使用缓存。如果该属性设置为 false，则每次都会向服务器请求
+					async: false, //默认是true，即为异步方式
+					data: {"msg":str},
+					dataType: "json", // 服务器响应的数据类型
+					success: function (data) {
+						console.log(data)
+					}
+				});
+			}
+
+			function appGet() {
+				$.ajax({
+					type: "get",  // 请求方式
+					url: "talk/message",  // 目标资源
+					data: str, // 请求参数
+					dataType: "json",  // 服务器响应的数据类型
+					success: function (data) {
+						console.log(data)
+					}
+				});
+			}
+			var str = "12"
 
 			/*测试数据*/
 			var arr=['我是苍老师啊','好久没联系了！','你在想我么','怎么不和我说话','跟我聊会天吧','别不理我呀！'];
@@ -253,21 +279,6 @@
 					},sj()*500)
 				})
 			}
-
-			function appPost() {
-				$.ajax({
-					url: "talk/message", // 目标资源
-					cache: false, //true 如果当前请求有缓存的话，直接使用缓存。如果该属性设置为 false，则每次都会向服务器请求
-					async: false, //默认是true，即为异步方式
-					data: "params",
-					dataType: "json", // 服务器响应的数据类型
-					type: "POST", // 请求方式
-					success: function (data) {
-						console.log(data)
-					}
-				});
-			}
-
 
 			(function (doc, win) {
 				var docEl = doc.documentElement,
